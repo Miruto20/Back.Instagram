@@ -1,5 +1,7 @@
 const selectUserByEmailQuery = require("../../bbdd/queries/users/selectUserByEmailQuery");
-const updateRecoverEmailQuery = require("../../bbdd/queries/users/updateRecoverEmailQuery");
+// const updateRecoverEmailQuery = require("../../bbdd/queries/users/updateRecoverEmailQuery");
+const updateUserEmailQuery = require("../../bbdd/queries/users/updateUserEmailQuery");
+
 const randomstring = require("randomstring");
 
 const { sendMail, generateError } = require("../../helpers");
@@ -8,9 +10,9 @@ const { ENLACE_CAMBIO_CORREO } = process.env;
 
 const sendRecoverEmail = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const { email, newEmail } = req.body;
 
-    if (!email) {
+    if (!newEmail) {
       throw generateError("Faltan campos", 400);
     }
 
@@ -19,14 +21,18 @@ const sendRecoverEmail = async (req, res, next) => {
 
     // Generamos el código de recuperación de contraseña.
     const recoverEmailCode = randomstring.generate(9);
-
+    /* 
     // Insertamos el código de recuperación en la base de datos.
-    await updateRecoverEmailQuery(recoverEmailCode, email);
+    await updateRecoverEmailQuery(recoverEmailCode, email); */
+
+    await updateUserEmailQuery(email, newEmail, recoverEmailCode);
 
     // Creamos el contenido que queremos que tenga el email de verificación.
     const emailContent = `
             Muy buenas ${user.username},
             Se ha solicitado cambiar la direccion de correo para esta cuenta de INSTAGRAM.JM. 
+
+            <a href="${ENLACE_CAMBIO_CORREO}${recoverEmailCode}"> Click aquí </a></p>
             Copia el siguiente código  ${recoverEmailCode} para confirmar en este enlace ${ENLACE_CAMBIO_CORREO}
             que quieres cambiar el correo de tu cuenta: 
 
@@ -34,7 +40,7 @@ const sendRecoverEmail = async (req, res, next) => {
         `;
 
     // Enviar un email con el código de recuperación al usuario.
-    await sendMail(email, emailContent);
+    await sendMail(newEmail, emailContent);
 
     res.send({
       status: "ok",

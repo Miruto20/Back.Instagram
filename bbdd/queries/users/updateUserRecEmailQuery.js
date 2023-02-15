@@ -25,7 +25,7 @@ const updateUserRecEmailQuery = async (recoverEmailCode) => {
 
     // Actualizamos al usuario.
     await connection.query(
-      `UPDATE user SET recoverEmailCode = null,active=true, modifiedAt = ? WHERE recoverEmailCode = ?`,
+      `UPDATE user SET recoverEmailCode = null, active=true, modifiedAt = ? WHERE recoverEmailCode = ?`,
       [new Date(), recoverEmailCode]
     );
   } finally {

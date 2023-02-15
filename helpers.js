@@ -34,12 +34,12 @@ const generateError = (msg, status) => {
  * ###############
  */
 
-const sendMail = async (to, text) => {
+const sendMail = async (to, html) => {
   const mailOptions = {
     from: SIB_SMTP_USER,
     to,
     subject: "Tenemos una cosa que decirte",
-    text,
+    html,
   };
 
   await transport.sendMail(mailOptions);

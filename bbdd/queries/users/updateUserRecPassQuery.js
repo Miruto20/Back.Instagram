@@ -28,7 +28,7 @@ const updateUserRecPassQuery = async (recoverPassCode, password) => {
 
     // Actualizamos al usuario.
     await connection.query(
-      `UPDATE user SET password = ?, recoverPassCode = null, modifiedAt = ? WHERE recoverPassCode = ?`,
+      `UPDATE user SET password = ?, active = true , recoverPassCode = null, modifiedAt = ? WHERE recoverPassCode = ?`,
       [hashedPass, new Date(), recoverPassCode]
     );
   } finally {

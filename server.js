@@ -80,7 +80,7 @@ app.put("/users/password", editPassword);
 app.post("/users/email/recover", isAuth, sendRecoverEmail);
 
 // Editamos el email de un usuario con un código de recuperación.
-app.put("/users/email", isAuth, editEmail);
+app.put("/users/email", editEmail);
 
 /**
  * ##########################

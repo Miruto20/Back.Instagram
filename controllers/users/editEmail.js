@@ -1,5 +1,5 @@
 const selectUserByEmailQuery = require("../../bbdd/queries/users/selectUserByEmailQuery");
-const updateUserEmailQuery = require("../../bbdd/queries/users/updateUserEmailQuery");
+const updateRecoverEmailQuery = require("../../bbdd/queries/users/updateRecoverEmailQuery");
 const bcrypt = require("bcrypt");
 const updateUserRecEmailQuery = require("../../bbdd/queries/users/updateUserRecEmailQuery");
 
@@ -7,9 +7,9 @@ const { generateError } = require("../../helpers");
 
 const editEmail = async (req, res, next) => {
   try {
-    const { recoverEmailCode, password, email, newEmail } = req.body;
+    const { recoverEmailCode, password, email } = req.body;
 
-    if (!recoverEmailCode || !password || !newEmail || !email) {
+    if (!recoverEmailCode || !password || !email) {
       throw generateError("Faltan campos", 400);
     }
 
@@ -29,9 +29,9 @@ const editEmail = async (req, res, next) => {
 
     //Compruebo codigo de email de usuario correcto, compruebo y lo vuelvo a poner a null
     await updateUserRecEmailQuery(recoverEmailCode);
-
+    /* 
     // Actualizamos el email del usuario.
-    await updateUserEmailQuery(email, newEmail);
+    await updateRecoverEmailQuery(recoverEmailCode, email); */
 
     res.send({
       status: "ok",
