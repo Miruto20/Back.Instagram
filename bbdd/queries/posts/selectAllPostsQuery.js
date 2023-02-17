@@ -14,10 +14,10 @@ const selectAllPostsQuery = async (idUser, keyword = "") => {
                 FROM post P
                 LEFT JOIN rate R ON P.id = R.idPost
                 LEFT JOIN user U ON P.idUser = U.id
-                WHERE P.text LIKE ?
+                WHERE P.text LIKE ? OR U.username LIKE ? OR P.place LIKE ?
                 GROUP BY P.id
             `,
-      [idUser, `%${keyword}%`]
+      [idUser, `%${keyword}%`, `%${keyword}%`, `%${keyword}%`]
     );
 
     if (posts.length < 1) {

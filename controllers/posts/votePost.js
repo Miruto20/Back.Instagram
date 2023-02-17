@@ -29,12 +29,13 @@ const votePost = async (req, res, next) => {
     const idUser = req.user.id;
 
     // Votamos el post.
-    await insertVoteQuery(value, idUser, idPost, timestamp);
+    const newVotesAvg = await insertVoteQuery(value, idUser, idPost, timestamp);
 
     res.send({
       status: "ok",
       message: "Voto enviado",
       createdAt: timestamp,
+      data: { votes: newVotesAvg },
     });
   } catch (err) {
     next(err);
