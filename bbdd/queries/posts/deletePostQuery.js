@@ -33,6 +33,19 @@ const deletePostQuery = async (idUser, idPost) => {
 
     // Borramos el post.
     await connection.query(`DELETE FROM post WHERE id = ?`, [idPost]);
+
+    const [posts] = await connection.query(
+      `
+                SELECT P.id, P.text, P.image, U.avatar, U.username, U.email, P.place, P.idUser, AVG(IFNULL(R.value, 0)) AS rate, P.idUser = ? AS owner, P.createdAt
+                FROM post P
+                LEFT JOIN rate R ON P.id = R.idPost
+                LEFT JOIN user U ON P.idUser = U.id
+                GROUP BY P.id
+            `,
+      [idUser]
+    );
+
+    return posts;
   } finally {
     if (connection) connection.release();
   }

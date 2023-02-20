@@ -40,7 +40,6 @@ const newPost = async (req, res, next) => {
       status: "ok",
       data: {
         post: {
-          id: idPost,
           imageName,
           place,
           text,
@@ -48,6 +47,7 @@ const newPost = async (req, res, next) => {
           createdAt: timestamp,
         },
       },
+      idPost,
     });
   } catch (err) {
     next(err);
