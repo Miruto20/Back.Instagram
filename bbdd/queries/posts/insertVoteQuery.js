@@ -26,6 +26,22 @@ const insertVoteQuery = async (value, idUser, idPost, timestamp) => {
             `,
       [value, idPost, idUser, timestamp]
     );
+
+    // calculamos la nueva media del Post
+
+    const [[{ rate: newVotesAvg }]] = await connection.query(
+      `
+
+SELECT AVG(IFNULL(R.value, 0)) AS rate
+FROM post P
+LEFT JOIN rate R ON P.id=R.idPost
+WHERE P.id= ?
+
+`,
+      [idPost]
+    );
+
+    return newVotesAvg;
   } finally {
     if (connection) connection.release();
   }

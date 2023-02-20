@@ -10,7 +10,7 @@ const selectPostByIdUserQuery = async (idUser) => {
 
     const [posts] = await connection.query(
       `
-                SELECT P.text, P.image, P.place, U.avatar, U.username, U.email, P.place, P.idUser, AVG(IFNULL(R.value, 0)) AS votes, P.createdAt, P.id, P.updatedAt
+                SELECT P.text, P.image, P.place, U.avatar, U.username, U.email, P.place, P.idUser, AVG(IFNULL(R.value, 0)) AS rate, P.createdAt, P.id, P.updatedAt
                 FROM user U
                 INNER JOIN post P ON U.id = P.idUser
                 LEFT JOIN rate R ON P.id = R.idPost

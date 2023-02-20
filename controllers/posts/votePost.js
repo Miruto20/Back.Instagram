@@ -35,7 +35,7 @@ const votePost = async (req, res, next) => {
       status: "ok",
       message: "Voto enviado",
       createdAt: timestamp,
-      data: { votes: newVotesAvg },
+      data: { rate: newVotesAvg },
     });
   } catch (err) {
     next(err);
