@@ -16,6 +16,13 @@ const insertComentQuery = async (text, idUser, idPost, timestamp) => {
             `,
       [idUser, idPost, text, timestamp, timestamp]
     );
+
+    const [coments] = await connection.query(
+      `SELECT C.id, C.idUser, C.text, U.username, U.avatar, U.email FROM coments C
+      LEFT JOIN user U ON U.id = C.idUser 
+      WHERE idPost = ?`,
+      [idPost]
+    );
   } finally {
     if (connection) connection.release();
   }
