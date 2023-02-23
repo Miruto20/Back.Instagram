@@ -24,11 +24,14 @@ const comentPost = async (req, res, next) => {
 
     // Comentamos el post.
     await insertComentQuery(text, req.user.id, idPost, timestamp);
+    // Obtenemos el post.
+    const postComent = await selectPostByIdQuery(idPost);
 
     res.send({
       status: "ok",
       message: "Comentario enviado",
       createdAt: timestamp,
+      data: { postComent },
     });
   } catch (err) {
     next(err);
