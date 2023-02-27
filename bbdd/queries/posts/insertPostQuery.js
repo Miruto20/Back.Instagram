@@ -22,6 +22,8 @@ const insertPostQuery = async (imageName, place, text, timestamp, idUser) => {
                 LEFT JOIN rate R ON P.id = R.idPost
                 LEFT JOIN user U ON P.idUser = U.id
                 GROUP BY P.id
+                ORDER BY P.createdAt DESC
+
             `,
       [idUser]
     );

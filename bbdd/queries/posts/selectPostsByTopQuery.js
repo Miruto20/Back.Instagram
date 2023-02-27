@@ -2,7 +2,7 @@ const getConnection = require("../../getConnection");
 
 const { generateError } = require("../../../helpers");
 
-const selectAllPostsQuery = async (idUser, keyword = "") => {
+const selectPostsByTopQuery = async (idUser, keyword = "") => {
   let connection;
 
   try {
@@ -17,7 +17,8 @@ const selectAllPostsQuery = async (idUser, keyword = "") => {
                 LEFT JOIN rate R2 ON (P.id = R2.idPost AND R2.idUser = ?)
                 WHERE P.text LIKE ? OR U.username LIKE ? OR P.place LIKE ?
                 GROUP BY P.id
-                ORDER BY P.createdAt DESC
+                ORDER BY rate DESC
+                LIMIT 5
             `,
       [idUser, idUser, idUser, `%${keyword}%`, `%${keyword}%`, `%${keyword}%`]
     );
@@ -31,5 +32,4 @@ const selectAllPostsQuery = async (idUser, keyword = "") => {
     if (connection) connection.release();
   }
 };
-
-module.exports = selectAllPostsQuery;
+module.exports = selectPostsByTopQuery;

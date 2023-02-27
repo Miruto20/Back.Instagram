@@ -97,12 +97,16 @@ const {
   comentPost,
   deleteComent,
 } = require("./controllers/posts");
+const getTopPosts = require("./controllers/posts/getTopPosts");
 
 // Crear un nuevo post.
 app.post("/posts", isAuth, newPost);
 
 // Listar posts.
 app.get("/posts", isAuth, listPosts);
+
+// Listar TOP 5 posts.
+app.get("/posts/top", isAuth, getTopPosts);
 
 // Obtener un post concreto.
 app.get("/post/:idPost", isAuth, getPost);
