@@ -15,10 +15,11 @@ const comentPost = async (req, res, next) => {
     // Obtenemos el post.
     const post = await selectPostByIdQuery(idPost);
 
+    //Esta funcionalidad decidimos al analizar el proyecto desactivarla y dejar a los dueños del post comentar su propio post
     // Si somos los dueños del post restringimos el comentario
-    if (post.idUser === req.user.id) {
+    /*    if (post.idUser === req.user.id) {
       throw generateError("No puedes comentar tu propio post", 403);
-    }
+    } */
 
     const timestamp = new Date();
 
