@@ -24,7 +24,7 @@ const sendRecoverPassword = async (req, res, next) => {
     // Creamos el contenido que queremos que tenga el email de verificación.
     const emailContent = `
            <p> Muy buenas ${user.username},
-            Se ha solicitado la recuperación de contraseña para este email en INSTAGRAM.JM:
+            Se ha solicitado la recuperación de contraseña para este email en CASIGRAM:
             <a href="${process.env.ENLACE_CAMBIO_CONTRASENA}${recoverPassCode}"> Click aquí </a></p>
            <p> Si no has sido tú ignora este correo.</p>
            

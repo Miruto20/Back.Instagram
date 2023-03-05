@@ -30,11 +30,10 @@ const sendRecoverEmail = async (req, res, next) => {
     // Creamos el contenido que queremos que tenga el email de verificación.
     const emailContent = `
             Muy buenas ${user.username},
-            Se ha solicitado cambiar la direccion de correo para esta cuenta de INSTAGRAM.JM. 
+            Se ha solicitado cambiar la direccion de correo para esta cuenta de CASIGRAM. 
 
             <a href="${ENLACE_CAMBIO_CORREO}${recoverEmailCode}"> Click aquí </a></p>
-            Copia el siguiente código  ${recoverEmailCode} para confirmar en este enlace ${ENLACE_CAMBIO_CORREO}
-            que quieres cambiar el correo de tu cuenta: 
+           
 
             Si no has sido tú ignora este correo.
         `;
