@@ -3,8 +3,9 @@ const selectPostByIdUserQuery = require("../../bbdd/queries/posts/selectPostById
 const getUserPost = async (req, res, next) => {
   try {
     const { idUser } = req.params;
+    const idUserLogged = req.user.id;
 
-    const post = await selectPostByIdUserQuery(idUser);
+    const post = await selectPostByIdUserQuery(idUser, idUserLogged);
 
     res.send({
       status: "ok",

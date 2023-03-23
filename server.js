@@ -115,7 +115,7 @@ app.get("/post/:idPost", isAuth, getPost);
 app.post("/posts/:idPost/votes", isAuth, votePost);
 
 // Obtener los posts de un usuario concreto.
-app.get("/posts/:idUser", getUserPosts);
+app.get("/posts/:idUser", isAuth, getUserPosts);
 
 // Eliminar un post.
 app.delete("/posts/:idPost", isAuth, postExists, deletePost);
